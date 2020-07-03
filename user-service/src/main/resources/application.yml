@@ -1,0 +1,16 @@
+server:
+  port: 8201 #运行端口
+spring:
+  application:
+    name: user-service #指定服务器名称
+
+eureka:
+  client:
+    register-with-eureka: true #注册到Eureka的注册中心
+    fetch-registry: true #获取注册实例列表
+    service-url:
+      defaultZone: http://localhost:8001/eureka  #一个注册中心
+#    service-url:
+#      defaultZone: http://replica1:8002/eureka/,http://replica2:8003/eureka/ #同时注册到两个注册中心
+#    service-url:
+#      defaultZone: http://ming:123456@localhost:8004/eureka/

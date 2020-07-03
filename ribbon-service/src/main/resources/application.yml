@@ -1,0 +1,47 @@
+server:
+  port: 8010 #运行端口
+spring:
+  application:
+    name: ribbon-service #指定服务器名称
+
+eureka:
+  client:
+    register-with-eureka: true #注册到Eureka的注册中心
+    fetch-registry: true #获取注册实例列表
+    service-url:
+      defaultZone: http://localhost:8001/eureka  #一个注册中心
+#    service-url:
+#      defaultZone: http://replica1:8002/eureka/,http://replica2:8003/eureka/ #同时注册到两个注册中心
+#    service-url:
+#      defaultZone: http://ming:123456@localhost:8004/eureka/
+
+service-url:
+  user-service: http://user-service  # 注册到配置中心的service名称
+
+# 全局配置
+#ribbon:
+#  ConnectTimeout: 1000 #服务请求连接超时时间（毫秒）
+#  ReadTimeout: 3000 #服务请求处理超时时间（毫秒）
+#  OkToRetryOnAllOperations: true #对超时请求启用重试机制
+#  MaxAutoRetriesNextServer: 1 #切换重试实例的最大个数
+#  MaxAutoRetries: 1 # 切换实例后重试最大次数
+#  NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #修改负载均衡算法
+
+# 制定服务器的单独配置
+#user-service:
+#  ribbon:
+#    ConnectTimeout: 1000 #服务请求连接超时时间（毫秒）
+#    ReadTimeout: 3000 #服务请求处理超时时间（毫秒）
+#    OkToRetryOnAllOperations: true #对超时请求启用重试机制
+#    MaxAutoRetriesNextServer: 1 #切换重试实例的最大个数
+#    MaxAutoRetries: 1 # 切换实例后重试最大次数
+#    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule #修改负载均衡算法
+
+# 负载均衡策略
+#  com.netflix.loadbalancer.RandomRule：从提供服务的实例中以随机的方式；
+#  com.netflix.loadbalancer.RoundRobinRule：以线性轮询的方式，就是维护一个计数器，从提供服务的实例中按顺序选取，第一次选第一个，第二次选第二个，以此类推，到最后一个以后再从头来过；
+#  com.netflix.loadbalancer.RetryRule：在RoundRobinRule的基础上添加重试机制，即在指定的重试时间内，反复使用线性轮询策略来选择可用实例；
+#  com.netflix.loadbalancer.WeightedResponseTimeRule：对RoundRobinRule的扩展，响应速度越快的实例选择权重越大，越容易被选择；
+#  com.netflix.loadbalancer.BestAvailableRule：选择并发较小的实例；
+#  com.netflix.loadbalancer.AvailabilityFilteringRule：先过滤掉故障实例，再选择并发较小的实例；
+#  com.netflix.loadbalancer.ZoneAwareLoadBalancer：采用双重过滤，同时过滤不是同一区域的实例和故障实例，选择并发较小的实例。
