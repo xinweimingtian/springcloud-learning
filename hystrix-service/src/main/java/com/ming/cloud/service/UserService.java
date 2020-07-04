@@ -3,7 +3,7 @@ package com.ming.cloud.service;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.collection.CollUtil;
 
-import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.client.RestTemplate;
+
 
 import com.ming.cloud.domain.CommonResult;
 import com.ming.cloud.domain.User;
@@ -123,8 +124,7 @@ public class UserService {
     public List<User> getUserByIds(List<Long> ids) {
         LOGGER.info("getUserByIds:{}", ids);
         CommonResult commonResult = restTemplate.getForObject(userServiceUrl + "/user/getUserByIds?ids={1}", CommonResult.class, CollUtil.join(ids,","));
-        System.out.println(commonResult.getData().getClass());
-        return (List<User>) commonResult.getData();
+        return (List<User>) commonResult.getData(); // 此处返回会报错 请看user-service是否调用
     }
 
 }
