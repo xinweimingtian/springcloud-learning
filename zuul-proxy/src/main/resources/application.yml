@@ -1,0 +1,35 @@
+server:
+  port: 8801
+spring:
+  application:
+    name: zuul-proxy
+eureka:
+  client:
+    register-with-eureka: true
+    fetch-registry: true
+    service-url:
+      defaultZone: http://localhost:8001/eureka/
+
+zuul:
+  routes: #给服务配置路由
+    user-service:
+      path: /userService/**
+    feign-service:
+      path: /feignService/**
+#  ignored-services: user-service,feign-service #关闭默认路由配置
+#  prefix: /proxy #给网关路由添加前缀
+#  sensitive-headers: Cookie,Set-Cookie,Authorization #配置过滤敏感的请求头信息，设置为空就不会过滤
+#  add-host-header: true #设置为true重定向是会添加host请求头
+management:
+  endpoints:
+    web:
+      exposure:
+        include: 'routes'
+
+
+#  路由与过滤是Zuul的两大核心功能，路由功能负责将外部请求转发到具体的服务实例上去，
+#  是实现统一访问入口的基础，过滤功能负责对请求过程进行额外的处理，是请求校验过滤及服务聚合的基础。
+
+
+
+
